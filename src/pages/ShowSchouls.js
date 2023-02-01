@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useState, useEffect} from 'react';
 
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
@@ -10,7 +10,13 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import TextField from '@mui/material/TextField';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
 import { Button } from '@mui/material';
+
+
 
 const columns = [
   { id: 'code', label: 'Codigo', minWidth: 170 },
@@ -39,35 +45,42 @@ const columns = [
 ];
 
 // chamada da api
-async function getSchouls(){
-  await fetch
+async function getStates(){
+  const data = await fetch("http://localhost:5000/uf", {
+    headers: {
+      'Accept': 'application/json'
+    }
+  })
+  .then(response => response.json())
+  .then(response => JSON.stringify(response));
+
+
+  return data;
 }
 
-function createData(name, code, population, size) {
-  const density = population / size;
-  return { name, code, population, size, density };
+async function getSchouls(){
+  
 }
+
 
 const rows = [
-  createData('India', 'IN', 1324171354, 3287263),
-  createData('China', 'CN', 1403500365, 9596961),
-  createData('Italy', 'IT', 60483973, 301340),
-  createData('United States', 'US', 327167434, 9833520),
-  createData('Canada', 'CA', 37602103, 9984670),
-  createData('Australia', 'AU', 25475400, 7692024),
-  createData('Germany', 'DE', 83019200, 357578),
-  createData('Ireland', 'IE', 4857000, 70273),
-  createData('Mexico', 'MX', 126577691, 1972550),
-  createData('Japan', 'JP', 126317000, 377973),
-  createData('France', 'FR', 67022000, 640679),
-  createData('United Kingdom', 'GB', 67545757, 242495),
-  createData('Russia', 'RU', 146793744, 17098246),
-  createData('Nigeria', 'NG', 200962417, 923768),
-  createData('Brazil', 'BR', 210147125, 8515767),
+
 ];
 
 export default function ShowSchouls() {
-  const [page, setPage] = React.useState(0);
+  
+  useEffect(() => {
+    const states = getStates();
+    console.log(states);
+  });
+
+  const [state, setstate] = useState('');
+
+  const handleChangeState = (event) => {
+    setstate(event.target.value);
+  };
+
+  const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
   const handleChangePage = (event, newPage) => {
@@ -82,19 +95,32 @@ export default function ShowSchouls() {
   return (
     <Box sx={{wideth: 200, height: 200, display: 'flex', flexWrap: 'wrap' }}>
         <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+          
             <h1>Escolas Cadastradas</h1>
-            <TextField
-                label="Estado"
-                id="outlined-start-adornment"
-                sx={{ m: 1, width: '25ch' }}
-            />
-            <TextField
-                label="With normal TextField"
-                id="outlined-start-adornment"
-                sx={{ m: 1, width: '25ch' }}
-            />
-            <Button variant="contained">Pesquisar</Button>
+            <FormControl>
+              <InputLabel id="demo-simple-select-label">Estado</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={state}
+                label="Age"
+                onChange={handleChangeState}
+              >
+                <MenuItem value={10}>Ten</MenuItem>
+                <MenuItem value={20}>Twenty</MenuItem>
+                <MenuItem value={30}>Thirty</MenuItem>
+              </Select>
 
+              <TextField
+                label="Nome da cidade"
+                id="outlined-start-adornment"
+                sx={{ m: 1, width: '25ch' }}
+              />
+
+              <Button variant="contained">Pesquisar</Button>
+
+            </FormControl>
+            
         <TableContainer sx={{ maxHeight: 440 }}>
             <Table stickyHeader aria-label="sticky table">
             <TableHead>

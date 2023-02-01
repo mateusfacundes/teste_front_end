@@ -28,5 +28,7 @@
         {"nome": "Sergipe", "sigla": "SE"},
         {"nome": "Tocantins", "sigla": "TO"}
 
-    ]
+    ],
+
+    "users": []
 }
