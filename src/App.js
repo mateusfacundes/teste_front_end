@@ -1,10 +1,10 @@
 import './App.css';
-import ShowSchouls from './components/ShowSchouls';
+import ShowSchouls from './pages/ShowSchouls';
 
 function App() {
   return (
     <div className="App">
-      <h1>Teste</h1>
+      <h1>Escolas do Brasil</h1>
       <ShowSchouls />
     </div>
   );

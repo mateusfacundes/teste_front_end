@@ -1,4 +1,5 @@
 import * as React from 'react';
+
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
@@ -9,11 +10,11 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import TextField from '@mui/material/TextField';
-import InputAdornment from '@mui/material/InputAdornment';
+import { Button } from '@mui/material';
 
 const columns = [
-  { id: 'name', label: 'Name', minWidth: 170 },
-  { id: 'code', label: 'ISO\u00a0Code', minWidth: 100 },
+  { id: 'code', label: 'Codigo', minWidth: 170 },
+  { id: 'name', label: 'Nome da instituição', minWidth: 100 },
   {
     id: 'population',
     label: 'Population',
@@ -39,7 +40,7 @@ const columns = [
 
 // chamada da api
 async function getSchouls(){
-
+  await fetch
 }
 
 function createData(name, code, population, size) {
@@ -79,25 +80,21 @@ export default function ShowSchouls() {
   };
 
   return (
-    <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
+    <Box sx={{wideth: 200, height: 200, display: 'flex', flexWrap: 'wrap' }}>
         <Paper sx={{ width: '100%', overflow: 'hidden' }}>
             <h1>Escolas Cadastradas</h1>
             <TextField
-                label="With normal TextField"
+                label="Estado"
                 id="outlined-start-adornment"
                 sx={{ m: 1, width: '25ch' }}
-                InputProps={{
-                    startAdornment: <InputAdornment position="start">kg</InputAdornment>,
-                }}
             />
             <TextField
                 label="With normal TextField"
                 id="outlined-start-adornment"
                 sx={{ m: 1, width: '25ch' }}
-                InputProps={{
-                    startAdornment: <InputAdornment position="start">kg</InputAdornment>,
-                }}
             />
+            <Button variant="contained">Pesquisar</Button>
+
         <TableContainer sx={{ maxHeight: 440 }}>
             <Table stickyHeader aria-label="sticky table">
             <TableHead>
