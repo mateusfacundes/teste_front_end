@@ -50,10 +50,6 @@ export default function ShowSchouls() {
     getCitys(event.target.value);
   };
 
-  const handleChangeCity = (event) => {
-    console.log(event.target)
-  }
-
   return (
       <Paper sx={{ width: '70%', overflow: 'hidden', margin: '0 auto' }}>
         <Fade
@@ -102,7 +98,7 @@ export default function ShowSchouls() {
 
           </FormControl>
           
-          <DrowTable />
+          <DrowTable data ={data}/>
 
       </Paper>
   );
