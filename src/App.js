@@ -1,10 +1,11 @@
 import './App.css';
+import NavBar from './components/NavBar'
 import ShowSchouls from './pages/ShowSchouls';
 
 function App() {
   return (
     <div className="App">
-      <h1>Escolas do Brasil</h1>
+      <NavBar />
       <ShowSchouls />
     </div>
   );

@@ -6,6 +6,7 @@ import config from '../config.json'
 
 import DrowTable from '../components/DrowTable';
 
+import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
@@ -33,16 +34,31 @@ export default function ShowSchouls() {
   async function getCitys(selectedState){
     setIsloading(true);
     await axios.get(config.api_url+"/cidades/"+selectedState, configAxios)
-    .then((response) => setCitys(response.data))
-    setIsloading(false);
-    console.log(citys);
+    .then((response) => {
+      setCitys(response.data);
+      setIsloading(false);
+    })
+    .catch((error) => {
+      alert("Deu ruim");
+      setIsloading(false);
+    });
   }
 
   async function getSchouls(cityCod){
     setIsloading(true);
+    const dataFomating = [];
+    
     await axios.get(config.api_url+"/escolas/buscaavancada?cidade="+cityCod)
-    .then((response) => setData(response.data))
-    setIsloading(false);
+    .then((response) => {
+      console.log(response.data)
+      setData(response.data);
+      setIsloading(false);
+    })
+    .catch((error) => {
+      alert("Deu ruim")
+      setIsloading(false);
+    });
+    
     console.log(data)
   }
 
@@ -62,41 +78,45 @@ export default function ShowSchouls() {
           <LinearProgress />
         </Fade>
   
-        <h1>Escolas Cadastradas</h1>
+        <h1>Pesquisa sua escola </h1>
           
-          <FormControl>
-            <InputLabel id="state-label">Estado</InputLabel>
-            <Select
-              defaultValue = ""
-              labelId="state-label"
-              id="state-select"
-              label="States"
-              onChange={handleChangeState}
-            >
-              {allStates.map((state) => {
-                return (
-                  <MenuItem key={state.sigla} value={state.sigla}>{state.nome}</MenuItem>    
-                )
-              })}
-            </Select>
-            <Autocomplete
-              disablePortal
-              id="combo-box-demo"
-              options={citys}
-              sx={{ width: 300 }}
-              renderInput={(params) => <TextField {...params} label="Cidades" />}
-              onChange={(event, value) => getSchouls(value.slice(0,7))} 
-            />
-            <Autocomplete
-              disablePortal
-              id="combo-box-demo"
-              options={citys}
-              sx={{ width: 300 }}
-              renderInput={(params) => <TextField {...params} label="Nome da Escola" />}
-            />
-            <Button variant="contained">Pesquisar</Button>
-
-          </FormControl>
+          <Box sx={{margin: '1%'}}>
+            <FormControl sx={{ m: 1, minWidth: 200 , maxWidth: 400}}>
+              <InputLabel id="state-label">Estado</InputLabel>
+              <Select
+                defaultValue = "Selecione o estado"
+                labelId="state-label"
+                id="state-select"
+                label="States"
+                onChange={handleChangeState}
+              >
+                {allStates.map((state) => {
+                  return (
+                    <MenuItem key={state.sigla} value={state.sigla}>{state.nome}</MenuItem>    
+                  )
+                })}
+              </Select>
+            </FormControl>
+            <FormControl sx={{ m: 1, minWidth: 100 }}>
+              <Autocomplete
+                disablePortal
+                id="combo-box-demo"
+                options={citys}
+                sx={{ width: 300 }}
+                renderInput={(params) => <TextField {...params} label="Cidades" />}
+                onChange={(event, value) => getSchouls(value.slice(0,7))} 
+              />
+            </FormControl>
+            <FormControl sx={{ m: 1, minWidth: 100 }}> 
+              <Autocomplete
+                disablePortal
+                id="combo-box-demo"
+                options={citys}
+                sx={{ width: 300 }}
+                renderInput={(params) => <TextField {...params} label="Nome da Escola" />}
+              />
+            </FormControl>
+          </Box>
           
           <DrowTable data ={data}/>
 
