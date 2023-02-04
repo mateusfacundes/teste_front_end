@@ -8,16 +8,6 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import { DataGrid } from '@mui/x-data-grid';
-
-const columns = [
-    { id: 'nome', label: 'Nome da instituição', minWidth: 100 },
-    { id: 'cityState', label: 'Cidade e Estado', minWidth: 100 },
-    { id: 'isWorking', label: 'Situaçãoo funcionamento', minWidth: 100 },
-    { id: 'classification', label: 'Dependência administrativa', minWidth: 100 },
-    { id: 'average', label: 'Média no ENEM', minWidth: 100 },
-];
-
 
 function createData(nome, cityState, isWorking, classification, average) {
     console.log(nome)
@@ -27,20 +17,12 @@ function createData(nome, cityState, isWorking, classification, average) {
 
 
 export default function DrowTable(data) {
-    let rows = [];
-    useEffect(() =>{
-        console.log(data)
-        if (data.data.length != 0){
-            data.data[1].map((row) => {
-                return(
-                    rows.push(createData(row.nome, row.cidade +" - "+ row.estado , row.situacaoFuncionamentoTxt, row.situacaoFuncionamentoTxt, row.enemMediaGeral))
-                )
-            });
-        }
-        else{
+  const [tabledata, setTableData] = useState([]);
 
-        }
-    });
+  useEffect(() =>{
+    setTableData(data.data[1]);
+    console.log(tabledata);
+  });
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -56,15 +38,49 @@ export default function DrowTable(data) {
 
   return (
     <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-        <DataGrid
-            rows={data}
-            columns={columns}
-            pageSize={5}
-            rowsPerPageOptions={[5]}
-            checkboxSelection
-            disableSelectionOnClick
-            experimentalFeatures={{ newEditingApi: true }}
-         />
+        <TableContainer>
+                <Table>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>Nome da instituição</TableCell>
+                            <TableCell>Cidade e Estado</TableCell>
+                            <TableCell>Situaçãoo funcionamento</TableCell>
+                            <TableCell>Dependência administrativa</TableCell>
+                            <TableCell>Média no ENEM</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                    {tabledata ? 
+                        tabledata.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((list, index) => (
+                          <TableRow key={index}>
+                              <TableCell>{list.nome}</TableCell>
+                              <TableCell>{list.cidade}-{list.estado}</TableCell>
+                              <TableCell>{list.situacaoFuncionamentoTxt}</TableCell>
+                              <TableCell>{list.dependenciaAdministrativaTxt}</TableCell>
+                              <TableCell>{list.enemMediaGeral}</TableCell>
+                          </TableRow>
+                        ))
+                        :
+                      <TableRow >
+                          <TableCell>-</TableCell>
+                          <TableCell>-</TableCell>
+                          <TableCell>-</TableCell>
+                          <TableCell>-</TableCell>
+                          <TableCell>-</TableCell>
+                      </TableRow>
+                    }
+                    </TableBody>
+                </Table>
+            </TableContainer>
+            <TablePagination
+              rowsPerPageOptions={[10, 25, 100]}
+              component="div"
+              count={tabledata ? tabledata.length : 0}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+            />
     </Paper>
   );
 }
