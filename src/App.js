@@ -1,26 +1,7 @@
-/*
 import './App.css';
-import NavBar from './components/NavBar'
-import ShowSchouls from './pages/ShowSchouls';
-import Login from './auth/Login';
-
-function App() {
-  return (
-    <div className="App">
-      <NavBar />
-      <ShowSchouls />
-      <Login />
-    </div>
-  );
-}
-
-export default App;
-*/
-
 import React, { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import NavBar from './components/NavBar'
-
 
 function App() {
 
@@ -41,7 +22,9 @@ function App() {
 	return (
 		<React.Fragment>
       {isLoggedIn && <NavBar />}
-			  <Outlet />
+        <div className="App">
+          <Outlet />
+        </div>
 		</React.Fragment>
 	);
 }

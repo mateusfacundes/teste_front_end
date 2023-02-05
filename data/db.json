@@ -10,5 +10,18 @@
       "password": "1234",
       "id": 2
     }
+  ],
+  "schous": [
+    {
+      "escola": {
+        "nome": "Escola",
+        "diretor": "AOMDaspodm",
+        "localizacao": 0,
+        "turnos": [
+          "M"
+        ]
+      },
+      "id": 1
+    }
   ]
 }
