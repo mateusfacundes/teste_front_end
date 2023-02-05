@@ -16,6 +16,7 @@ import FormControl from '@mui/material/FormControl';
 import Autocomplete from '@mui/material/Autocomplete';
 import LinearProgress from '@mui/material/LinearProgress';
 import Fade from '@mui/material/Fade';
+import Grid from '@mui/material/Grid';
 import { Button } from '@mui/material';
 
 const configAxios = {
@@ -67,59 +68,61 @@ export default function ShowSchouls() {
   };
 
   return (
-      <Paper sx={{ width: '70%', overflow: 'hidden', margin: '0 auto' }}>
-        <Fade
-            in={isloading}
-            style={{
-              transitionDelay: isloading ? '1ms' : '0ms',
-            }}
-            unmountOnExit
-          >
-          <LinearProgress />
-        </Fade>
-  
-        <h1>Pesquisa sua escola </h1>
-          
-          <Box sx={{margin: '1%'}}>
-            <FormControl sx={{ m: 1, minWidth: 200 , maxWidth: 400}}>
-              <InputLabel id="state-label">Estado</InputLabel>
-              <Select
-                defaultValue = "Selecione o estado"
-                labelId="state-label"
-                id="state-select"
-                label="States"
-                onChange={handleChangeState}
-              >
-                {allStates.map((state) => {
-                  return (
-                    <MenuItem key={state.sigla} value={state.sigla}>{state.nome}</MenuItem>    
-                  )
-                })}
-              </Select>
-            </FormControl>
-            <FormControl sx={{ m: 1, minWidth: 100 }}>
-              <Autocomplete
-                disablePortal
-                id="combo-box-demo"
-                options={citys}
-                sx={{ width: 300 }}
-                renderInput={(params) => <TextField {...params} label="Cidades" />}
-                onChange={(event, value) => getSchouls(value.slice(0,7))} 
-              />
-            </FormControl>
-            <FormControl sx={{ m: 1, minWidth: 100 }}> 
-              <Autocomplete
-                disablePortal
-                id="combo-box-demo"
-                options={citys}
-                sx={{ width: 300 }}
-                renderInput={(params) => <TextField {...params} label="Nome da Escola" />}
-              />
-            </FormControl>
-          </Box>
-          
-          <DrowTable data ={data}/>
+    <Grid container>
+        <Paper sx={{ width: '70%', margin: '20px auto' }}>
+          <Fade
+              in={isloading}
+              style={{
+                transitionDelay: isloading ? '1ms' : '0ms',
+              }}
+              unmountOnExit
+            >
+            <LinearProgress />
+          </Fade>
+    
+          <h1>Pesquisa sua escola </h1>
+            
+            <Box sx={{margin: '1%'}}>
+              <FormControl sx={{ m: 1, minWidth: 200 , maxWidth: 400}}>
+                <InputLabel id="state-label">Estado</InputLabel>
+                <Select
+                  defaultValue = "Selecione o estado"
+                  labelId="state-label"
+                  id="state-select"
+                  label="States"
+                  onChange={handleChangeState}
+                >
+                  {allStates.map((state) => {
+                    return (
+                      <MenuItem key={state.sigla} value={state.sigla}>{state.nome}</MenuItem>    
+                    )
+                  })}
+                </Select>
+              </FormControl>
+              <FormControl sx={{ m: 1, minWidth: 100 }}>
+                <Autocomplete
+                  disablePortal
+                  id="combo-box-demo"
+                  options={citys}
+                  sx={{ width: 300 }}
+                  renderInput={(params) => <TextField {...params} label="Cidades" />}
+                  onChange={(event, value) => getSchouls(value.slice(0,7))} 
+                />
+              </FormControl>
+              <FormControl sx={{ m: 1, minWidth: 100 }}> 
+                <Autocomplete
+                  disablePortal
+                  id="combo-box-demo"
+                  options={citys}
+                  sx={{ width: 300 }}
+                  renderInput={(params) => <TextField {...params} label="Nome da Escola" />}
+                />
+              </FormControl>
+            </Box>
+            
+            <DrowTable data ={data}/>
 
-      </Paper>
+        </Paper>
+      </Grid>
   );
 }
