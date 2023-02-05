@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 import AppBar from '@mui/material/AppBar';
@@ -16,12 +17,22 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 
+
+
 const pages = ['Mostrar Escolas', 'Cadastrar Escolas', 'Sobre'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function ResponsiveAppBar() {
+  const navigate = useNavigate();
+
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+  const handleLogOff = (event) =>{
+    localStorage.clear();
+    navigate("/auth/login");
+
+  }
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -132,7 +143,7 @@ function ResponsiveAppBar() {
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Button                    
-                    onClick={handleCloseNavMenu}
+                    onClick={handleLogOff}
                     sx={{ my: 2, color: 'white', display: 'block' }}
                 >
                     Sair
