@@ -17,7 +17,6 @@ import FormControl from '@mui/material/FormControl';
 import Autocomplete from '@mui/material/Autocomplete';
 
 import Grid from '@mui/material/Grid';
-import { Button } from '@mui/material';
 
 const configAxios = {
   headers:{
@@ -69,7 +68,7 @@ export default function ShowSchouls() {
 
   return (
     <Grid container>
-        <Paper sx={{ width: '70%', margin: '20px auto' }}>
+        <Paper sx={{ width: '70%', margin: '20px auto'}}>
 
           <Loading loading={isloading} />
           
@@ -113,7 +112,7 @@ export default function ShowSchouls() {
               </FormControl>
             </Box>
             
-            <DrowTable data ={data}/>
+            <DrowTable data ={data} isRegister={false}/>
 
         </Paper>
       </Grid>
