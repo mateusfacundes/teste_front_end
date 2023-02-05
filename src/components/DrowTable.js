@@ -9,19 +9,16 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 
-function createData(nome, cityState, isWorking, classification, average) {
-    console.log(nome)
-  return { nome, cityState, isWorking, classification, average};
-}
+const showPageOption = ["Nome da instituição", "Cidade e Estado", "Situação de funcionamento", "Dependência administrativa"];
+const registerPageOption = ["Nome da escola","Nome do diretor", "Localização da escola", "Turnos"];
 
-
-
-export default function DrowTable(data) {
+export default function DrowTable({data, isRegister}) {
+  
   const [tabledata, setTableData] = useState([]);
 
   useEffect(() =>{
-    setTableData(data.data[1]);
-    console.log(tabledata);
+    isRegister ?   setTableData(data) : setTableData(data[1])  
+    console.log(tabledata)
   });
 
   const [page, setPage] = useState(0);
@@ -42,27 +39,41 @@ export default function DrowTable(data) {
                 <Table>
                     <TableHead>
                         <TableRow>
-                            <TableCell>Nome da instituição</TableCell>
-                            <TableCell>Cidade e Estado</TableCell>
-                            <TableCell>Situaçãoo funcionamento</TableCell>
-                            <TableCell>Dependência administrativa</TableCell>
-                            <TableCell>Média no ENEM</TableCell>
+                            {isRegister ? 
+                                registerPageOption.map((item, index) => (
+                                  <TableCell key={index}>{item}</TableCell>
+                                ))
+                                :
+                                showPageOption.map((item, index) => (
+                                  <TableCell key={index}>{item}</TableCell>
+                                ))
+                            }
                         </TableRow>
                     </TableHead>
                     <TableBody>
                     {tabledata ? 
-                        tabledata.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((list, index) => (
+                        isRegister ? 
+                          tabledata.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                          .map((list, index) => (
+                            <TableRow key={index}>
+                                <TableCell>{list.escola.nome}</TableCell>
+                                <TableCell>{list.escola.diretor}</TableCell>
+                                <TableCell>{list.escola.localizacao}</TableCell>
+                                <TableCell>{list.escola.turnos}</TableCell>
+                            </TableRow>
+                          ))
+                        :
+                        tabledata.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                        .map((list, index) => (
                           <TableRow key={index}>
                               <TableCell>{list.nome}</TableCell>
                               <TableCell>{list.cidade}-{list.estado}</TableCell>
                               <TableCell>{list.situacaoFuncionamentoTxt}</TableCell>
                               <TableCell>{list.dependenciaAdministrativaTxt}</TableCell>
-                              <TableCell>{list.enemMediaGeral}</TableCell>
                           </TableRow>
                         ))
                         :
                       <TableRow >
-                          <TableCell>-</TableCell>
                           <TableCell>-</TableCell>
                           <TableCell>-</TableCell>
                           <TableCell>-</TableCell>

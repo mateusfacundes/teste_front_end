@@ -37,8 +37,8 @@ export default function Login() {
                     navigate("/");
                 }
             }else{
-                navigate("/login");
-                setIsLoading(false)
+                alert('Usuario n encontrado ');
+                setIsLoading(false);
             }
             
             console.log(response.data);
@@ -73,16 +73,3 @@ export default function Login() {
     )
 }
 
-
-/*
-                <Grid item xs={6} md={4}>   
-                    <Grid align='center'>
-                        <h2>Registrar</h2>
-                    </Grid>
-                    <TextField label='Usuario' placeholder='Usuario' variant="outlined" fullWidth required/>
-                    <TextField label='Senha' placeholder='Senha' type='password' variant="outlined" fullWidth required/>
-                    <TextField label='Confirme a senha' placeholder='Confirme a senha' type='password' variant="outlined" fullWidth required/>
-
-                    <Button type='submit' color='primary' variant="contained" style={btnstyle} fullWidth onSubmit={handleSubmitLogin}>Registrar</Button>
-                </Grid>  
-*/
