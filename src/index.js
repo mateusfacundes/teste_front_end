@@ -6,9 +6,12 @@ import Login from './auth/Login';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import ProtectedRoute from './util/ProtectedRoute';
-import ShowSchouls from './pages/ShowSchouls';
 import Auth from './auth/Auth';
 import reportWebVitals from './reportWebVitals';
+
+import ShowSchouls from './pages/ShowSchouls';
+import AboutMe from './pages/AboutMe';
+import RegisterSchoul from './pages/RegisterSchoul';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -22,6 +25,16 @@ root.render(
 					<Route path='' element={
 						<ProtectedRoute>
 							<ShowSchouls />
+						</ProtectedRoute>
+					} />
+					<Route path='registerschoul' element={
+						<ProtectedRoute>
+							<RegisterSchoul />
+						</ProtectedRoute>
+					} />
+					<Route path='about' element={
+						<ProtectedRoute>
+							<AboutMe />
 						</ProtectedRoute>
 					} />
 				</Route>
