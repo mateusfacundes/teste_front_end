@@ -4,6 +4,7 @@ import axios from 'axios';
 
 import config from '../config.json'
 
+import Loading from '../components/loading';
 import DrowTable from '../components/DrowTable';
 
 import Box from '@mui/material/Box';
@@ -14,8 +15,7 @@ import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import Autocomplete from '@mui/material/Autocomplete';
-import LinearProgress from '@mui/material/LinearProgress';
-import Fade from '@mui/material/Fade';
+
 import Grid from '@mui/material/Grid';
 import { Button } from '@mui/material';
 
@@ -70,16 +70,9 @@ export default function ShowSchouls() {
   return (
     <Grid container>
         <Paper sx={{ width: '70%', margin: '20px auto' }}>
-          <Fade
-              in={isloading}
-              style={{
-                transitionDelay: isloading ? '1ms' : '0ms',
-              }}
-              unmountOnExit
-            >
-            <LinearProgress />
-          </Fade>
-    
+
+          <Loading loading={isloading} />
+          
           <h1>Pesquisa sua escola </h1>
             
             <Box sx={{margin: '1%'}}>
