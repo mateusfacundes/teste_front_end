@@ -15,6 +15,7 @@ import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import Autocomplete from '@mui/material/Autocomplete';
+import Button  from '@mui/material/Button';
 
 import Grid from '@mui/material/Grid';
 
@@ -45,10 +46,17 @@ export default function ShowSchouls() {
     });
   }
 
-  async function getSchouls(cityCod){
+  async function getSchouls(searchData, isByName){
+    let path;
+    if (isByName){
+      path = "/escolas?nome="
+    }
+    else{
+      path = "/escolas/buscaavancada?cidade="
+    }
     setIsloading(true);
     
-    await axios.get(config.api_url+"/escolas/buscaavancada?cidade="+cityCod)
+    await axios.get(config.api_url+path+searchData)
     .then((response) => {
       console.log(response.data)
       setData(response.data);
@@ -59,17 +67,20 @@ export default function ShowSchouls() {
       alert("Deu ruim")
       setIsloading(false);
     });
-    
-    console.log(data)
   }
 
   const handleChangeState = (event) => {
     getCitys(event.target.value);
   };
 
+  const handleNameSearch = () => {
+    let schoulName = document.getElementById("schoulName").value;
+    getSchouls(schoulName, true);
+  }
+
   return (
     <Grid container>
-        <Paper sx={{ width: '70%', margin: '20px auto'}}>
+        <Paper sx={{ width: '80%', margin: '30px auto'}}>
 
           <Loading loading={isloading} />
           
@@ -102,15 +113,13 @@ export default function ShowSchouls() {
                   onChange={(event, value) => getSchouls(value.slice(0,7))} 
                 />
               </FormControl>
+
+            </Box>
+            <Box sx={{margin: '1%'}}>
               <FormControl sx={{ m: 1, minWidth: 100 }}> 
-                <Autocomplete
-                  disablePortal
-                  id="combo-box-demo"
-                  options={citys}
-                  sx={{ width: 300 }}
-                  renderInput={(params) => <TextField {...params} label="Nome da Escola" />}
-                />
-              </FormControl>
+                  <TextField id="schoulName" label="Nome da escola" variant="outlined" />
+                </FormControl>
+              <Button type='submit' color='primary' variant="contained" onClick={handleNameSearch}  sx={{ m: 3, minWidth: 200 }}>Pesquisar por nome </Button>
             </Box>
             
             <DrowTable data ={data} isRegister={false}/>
