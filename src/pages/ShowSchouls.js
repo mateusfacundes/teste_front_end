@@ -46,7 +46,7 @@ export default function ShowSchouls() {
       setIsloading(false);
     });
   }
-  //http://educacao.dadosabertosbr.com/api/escolas/buscaavancada?nome=militar&cidade=3304557
+
   async function getSchouls(searchData, isByName){
     let path = "/escolas/buscaavancada?";
     if (isByName){
@@ -67,7 +67,7 @@ export default function ShowSchouls() {
       setIsloading(false);
     })
     .catch((error) => {
-      alert("Deu ruim")
+      alert("Acesse https://cors-anywhere.herokuapp.com/corsdemo e click em 'Request temporary access to the demo server' para liberar o acesso ao proxy")
       setIsloading(false);
     });
   }
