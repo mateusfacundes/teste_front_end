@@ -5,16 +5,20 @@ import config from '../../config.json';
 
 import Loading from '../../components/loading';
 
+import Alert from '@mui/material/Alert';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import Button  from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 
 import { useNavigate } from "react-router-dom";
+import { margin } from '@mui/system';
 
 
 export default function Login() {
     const [isLoading, setIsLoading] = useState(false);
+    const [isError, setIsError] = useState(false);
+    
     const navigate = useNavigate();
 
     const handleSubmitLogin = async (event) => {
@@ -30,14 +34,18 @@ export default function Login() {
         .then((response) =>{
             if(response.data.length > 0){
                 console.log(response.data[0].password);
-                if(response.data[0].password == password){
+                if(response.data[0].password === password){
                     setIsLoading(false)
                     localStorage.clear();
                     localStorage.setItem('user-token', response.data[0].username);
                     navigate("/");
                 }
+                else{
+                    setIsError(true)
+                    setIsLoading(false); 
+                }
             }else{
-                alert('Usuario n encontrado ');
+                setIsError(true)
                 setIsLoading(false);
             }
             
@@ -47,7 +55,7 @@ export default function Login() {
         console.log('log')
     }
 
-    const paperStyle={padding :20,height:'70vh',width:'20%'}
+    const paperStyle={padding :20,height:'70vh',width:'30%'}
     
     const btnstyle={margin:'8px 0'}
     return(
@@ -59,17 +67,33 @@ export default function Login() {
         justifyContent="center"
         style={{ minHeight: '100vh' }}
         >
-            <Paper elevation={10} style={paperStyle}>
-                
+            <Paper elevation={10} style={paperStyle} sx={{minWidth: 250, maxWidth: 500}}>
                 <Loading loading={isLoading}/>
-
-                <Grid align='center'>
+                {
+                    isError ? 
+                    (
+                        <Alert severity="error">Usuraio não cadastrado ou senha inválida</Alert>
+                    )
+                    : 
+                    ('')
+                }
+                <Grid align='center'  sx={12}>
                     <h2>Entrar</h2>
                 </Grid>
-                <TextField id='username' label='Usuario'  variant="outlined" fullWidth  />
-                <TextField  id='password' label='Senha'  type='password' variant="outlined" fullWidth />
+                
+                <Grid container spacing={2}>
 
-                <Button type='submit' color='primary' variant="contained" style={btnstyle} onClick={handleSubmitLogin} fullWidth>Entrar </Button>
+                    <Grid align='center' xs={12} sx={{margin: '10px'}}>
+                        <TextField id='username' label='Usuario'  variant="outlined" fullWidth  />
+                    </Grid>
+                    <Grid align='center' xs={12} sx={{margin: '10px'}}>
+                        <TextField  id='password' label='Senha'  type='password' variant="outlined" fullWidth />
+                    </Grid>
+                    <Grid align='center' xs={12} sx={{margin: '10px'}}>
+                        <Button type='submit' color='primary' variant="contained" style={btnstyle} onClick={handleSubmitLogin} fullWidth>Entrar </Button>
+                    </Grid>
+                </Grid>
+                
             </Paper>    
         </Grid>
     )
