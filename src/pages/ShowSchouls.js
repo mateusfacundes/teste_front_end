@@ -29,6 +29,7 @@ export default function ShowSchouls() {
   const allStates = config.uf
   const [citys, setCitys] = useState([]);
   const [data, setData] = useState([]);
+  
   const [isloading, setIsloading] = useState(false);
 
   async function getCitys(selectedState){
@@ -46,12 +47,12 @@ export default function ShowSchouls() {
 
   async function getSchouls(cityCod){
     setIsloading(true);
-    const dataFomating = [];
     
     await axios.get(config.api_url+"/escolas/buscaavancada?cidade="+cityCod)
     .then((response) => {
       console.log(response.data)
       setData(response.data);
+
       setIsloading(false);
     })
     .catch((error) => {

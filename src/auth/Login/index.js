@@ -59,15 +59,17 @@ export default function Login() {
         justifyContent="center"
         style={{ minHeight: '100vh' }}
         >
-            <Loading loading={isLoading}/>
             <Paper elevation={10} style={paperStyle}>
-                    <Grid align='center'>
-                        <h2>Entrar</h2>
-                    </Grid>
-                    <TextField id='username' label='Usuario'  variant="outlined" fullWidth  />
-                    <TextField  id='password' label='Senha'  type='password' variant="outlined" fullWidth />
+                
+                <Loading loading={isLoading}/>
 
-                    <Button type='submit' color='primary' variant="contained" style={btnstyle} onClick={handleSubmitLogin} fullWidth>Entrar </Button>
+                <Grid align='center'>
+                    <h2>Entrar</h2>
+                </Grid>
+                <TextField id='username' label='Usuario'  variant="outlined" fullWidth  />
+                <TextField  id='password' label='Senha'  type='password' variant="outlined" fullWidth />
+
+                <Button type='submit' color='primary' variant="contained" style={btnstyle} onClick={handleSubmitLogin} fullWidth>Entrar </Button>
             </Paper>    
         </Grid>
     )
