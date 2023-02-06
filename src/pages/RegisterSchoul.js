@@ -33,7 +33,7 @@ export default function RegisterSchoul() {
     const handleChangeForm = () => {
         const chekedBoxValidate = [document.getElementById('morning').checked, document.getElementById('afternoon').checked, document.getElementById('night').checked]
 
-        if(document.getElementById('schoulName').value != null && document.getElementById('directorName').value  != null && location != 0 && chekedBoxValidate.some(check => check == true)){
+        if(document.getElementById('schoulName').value !== null && document.getElementById('directorName').value  !== null && location !== 0 && chekedBoxValidate.some(check => check === true)){
             setisValidated(false);
         }else{
             setisValidated(true);
