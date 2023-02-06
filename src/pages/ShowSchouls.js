@@ -30,7 +30,8 @@ export default function ShowSchouls() {
   const allStates = config.uf
   const [citys, setCitys] = useState([]);
   const [data, setData] = useState([]);
-  
+  const [cityCod, setCityCod] = useState('');
+
   const [isloading, setIsloading] = useState(false);
 
   async function getCitys(selectedState){
@@ -45,18 +46,20 @@ export default function ShowSchouls() {
       setIsloading(false);
     });
   }
-
+  //http://educacao.dadosabertosbr.com/api/escolas/buscaavancada?nome=militar&cidade=3304557
   async function getSchouls(searchData, isByName){
-    let path;
+    let path = "/escolas/buscaavancada?";
     if (isByName){
-      path = "/escolas?nome="
+      path += "&nome="
+      if(cityCod)
+      path += searchData+"&cidade="+cityCod
     }
     else{
-      path = "/escolas/buscaavancada?cidade="
+      path += "cidade="+searchData
     }
     setIsloading(true);
     
-    await axios.get(config.api_url+path+searchData)
+    await axios.get(config.api_url+path)
     .then((response) => {
       console.log(response.data)
       setData(response.data);
@@ -110,7 +113,10 @@ export default function ShowSchouls() {
                   options={citys}
                   sx={{ width: 300 }}
                   renderInput={(params) => <TextField {...params} label="Cidades" />}
-                  onChange={(event, value) => getSchouls(value.slice(0,7))} 
+                  onChange={(event, value) => {
+                    setCityCod(value.slice(0,7));
+                    getSchouls(value.slice(0,7))
+                  }} 
                 />
               </FormControl>
 
