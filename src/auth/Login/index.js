@@ -10,9 +10,9 @@ import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import Button  from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
+import Link from '@mui/material/Link';
 
 import { useNavigate } from "react-router-dom";
-import { margin } from '@mui/system';
 
 
 export default function Login() {
@@ -71,11 +71,9 @@ export default function Login() {
                 <Loading loading={isLoading}/>
                 {
                     isError ? 
-                    (
-                        <Alert severity="error">Usuraio não cadastrado ou senha inválida</Alert>
-                    )
+                    <Alert severity="error">Usuraio não cadastrado ou senha inválida</Alert>
                     : 
-                    ('')
+                    ''
                 }
                 <Grid align='center'  sx={12}>
                     <h2>Entrar</h2>
@@ -92,8 +90,15 @@ export default function Login() {
                     <Grid align='center' xs={12} sx={{margin: '10px'}}>
                         <Button type='submit' color='primary' variant="contained" style={btnstyle} onClick={handleSubmitLogin} fullWidth>Entrar </Button>
                     </Grid>
+                    <Grid align='center' xs={12} sx={{margin: '10px'}}>
+                        <Link onClick={() => navigate('/auth/register')} underline="none">
+                            Registrar
+                        </Link>
+                    </Grid>
+                    
+                    
                 </Grid>
-                
+
             </Paper>    
         </Grid>
     )
