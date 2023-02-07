@@ -51,7 +51,6 @@ export default function Register() {
                 setIsLoading(false);
             }
             
-            console.log(response.data);
         })
         
         
@@ -93,7 +92,7 @@ export default function Register() {
         justifyContent="center"
         style={{ minHeight: '100vh' }}
         >
-            <Paper elevation={10} style={paperStyle} sx={{minWidth: 250, maxWidth: 500}}>
+            <Paper elevation={10} style={paperStyle} sx={{minWidth: 250, maxWidth: 500 , minHeight: 350 }}>
                 <Loading loading={isLoading}/>
                 {
                     isError ? 

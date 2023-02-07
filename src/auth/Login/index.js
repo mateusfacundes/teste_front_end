@@ -33,7 +33,6 @@ export default function Login() {
         await axios.get(config.local_db_url+"/users?username="+username)
         .then((response) =>{
             if(response.data.length > 0){
-                console.log(response.data[0].password);
                 if(response.data[0].password === password){
                     setIsLoading(false)
                     localStorage.clear();
@@ -49,10 +48,9 @@ export default function Login() {
                 setIsLoading(false);
             }
             
-            console.log(response.data);
+            
         })
         
-        console.log('log')
     }
 
     const paperStyle={padding :20,height:'70vh',width:'30%'}
@@ -67,7 +65,7 @@ export default function Login() {
         justifyContent="center"
         style={{ minHeight: '100vh' }}
         >
-            <Paper elevation={10} style={paperStyle} sx={{minWidth: 250, maxWidth: 500}}>
+            <Paper elevation={10} style={paperStyle} sx={{minWidth: 250, maxWidth: 500, minHeight: 300}}>
                 <Loading loading={isLoading}/>
                 {
                     isError ? 

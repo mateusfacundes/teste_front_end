@@ -18,7 +18,7 @@ export default function DrowTable({data, isRegister}) {
 
   useEffect(() =>{
     isRegister ?   setTableData(data) : setTableData(data[1])  
-    console.log(tabledata)
+    
   });
 
   const [page, setPage] = useState(0);
@@ -71,7 +71,7 @@ export default function DrowTable({data, isRegister}) {
                             <TableRow key={index}>
                                 <TableCell>{list.escola.nome}</TableCell>
                                 <TableCell>{list.escola.diretor}</TableCell>
-                                <TableCell>{list.escola.localizacao == 1? 'Urbano' : 'Rural'}</TableCell>
+                                <TableCell>{list.escola.localizacao === 1? 'Urbano' : 'Rural'}</TableCell>
                                 <TableCell>{list.escola.turnos.map((shift) => shiftExchanger(shift))}</TableCell>
                             </TableRow>
                           ))
