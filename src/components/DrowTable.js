@@ -33,6 +33,19 @@ export default function DrowTable({data, isRegister}) {
     setPage(0);
   };
 
+  function shiftExchanger(shift){
+    if(shift === 'M'){
+      return("Matutino ")
+    }
+    if(shift === 'T'){
+      return("Vespertino ")
+    }
+    if(shift === 'N'){
+      return("Oturno ")
+    }
+
+  }
+
   return (
     <Paper sx={{ width: '100%', overflow: 'hidden' }}>
         <TableContainer>
@@ -58,8 +71,8 @@ export default function DrowTable({data, isRegister}) {
                             <TableRow key={index}>
                                 <TableCell>{list.escola.nome}</TableCell>
                                 <TableCell>{list.escola.diretor}</TableCell>
-                                <TableCell>{list.escola.localizacao}</TableCell>
-                                <TableCell>{list.escola.turnos}</TableCell>
+                                <TableCell>{list.escola.localizacao == 1? 'Urbano' : 'Rural'}</TableCell>
+                                <TableCell>{list.escola.turnos.map((shift) => shiftExchanger(shift))}</TableCell>
                             </TableRow>
                           ))
                         :
@@ -95,53 +108,3 @@ export default function DrowTable({data, isRegister}) {
     </Paper>
   );
 }
-
-/*
-<TableContainer sx={{ maxHeight: 440 }}>
-        <Table stickyHeader aria-label="sticky table">
-          <TableHead>
-            <TableRow>
-              {columns.map((column) => (
-                <TableCell
-                  key={column.id}
-                  align={column.align}
-                  style={{ minWidth: column.minWidth }}
-                >
-                  {column.label}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row) => {
-                return (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={row.cod}>
-                    {columns.map((column) => {
-                      const value = row[column.id];
-                      return (
-                        <TableCell key={column.id} align={column.align}>
-                          {column.format && typeof value === 'number'
-                            ? column.format(value)
-                            : value}
-                        </TableCell>
-                      );
-                    })}
-                  </TableRow>
-                );
-              })}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <TablePagination
-        rowsPerPageOptions={[10, 25, 100]}
-        component="div"
-        count={rows.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
-
-*/
