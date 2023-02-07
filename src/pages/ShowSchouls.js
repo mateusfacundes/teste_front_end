@@ -16,6 +16,7 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import Autocomplete from '@mui/material/Autocomplete';
 import Button  from '@mui/material/Button';
+import Alert from '@mui/material/Alert';
 
 import Grid from '@mui/material/Grid';
 
@@ -31,24 +32,43 @@ export default function ShowSchouls() {
   const [citys, setCitys] = useState([]);
   const [data, setData] = useState([]);
   const [cityCod, setCityCod] = useState('');
-
+  const [alertMode, setalertMode] = useState('');
+  const [alertMessage, setAlertMessage] = useState('');
   const [isloading, setIsloading] = useState(false);
+  const [isValid, seIsvalid] = useState(true);
 
   async function getCitys(selectedState){
     setIsloading(true);
     await axios.get(config.api_url+"/cidades/"+selectedState, configAxios)
     .then((response) => {
+      if(response.data.length === 0){
+        setAlertMessage('Solicitação não encontrada');
+        setalertMode('warning')
+        setTimeout(() => {
+          setAlertMessage('');
+          setalertMode('')
+        }, 3000);
+      }
       setCitys(response.data);
       setIsloading(false);
     })
     .catch((error) => {
-      alert("Deu ruim");
+      console.log(error);
+      
+      setAlertMessage('Aconteceu um erro carregar sua requisição');
+      setalertMode('error')
+      setTimeout(() => {
+        setAlertMessage('');
+        setalertMode('')
+      }, 3000);
+
       setIsloading(false);
     });
   }
 
   async function getSchouls(searchData, isByName){
     let path = "/escolas/buscaavancada?";
+
     if (isByName){
       path += "&nome="
       if(cityCod)
@@ -62,12 +82,27 @@ export default function ShowSchouls() {
     await axios.get(config.api_url+path)
     .then((response) => {
       console.log(response.data)
+      if(!response.data.length === 0){
+        setAlertMessage('Solicitação não encontrada');
+        setalertMode('warning')
+        setTimeout(() => {
+          setAlertMessage('');
+          setalertMode('')
+        }, 3000);
+      }
       setData(response.data);
 
       setIsloading(false);
     })
     .catch((error) => {
-      alert("Acesse https://cors-anywhere.herokuapp.com/corsdemo e click em 'Request temporary access to the demo server' para liberar o acesso ao proxy")
+
+      setAlertMessage('Aconteceu um erro carregar sua requisição');
+      setalertMode('error')
+      setTimeout(() => {
+        setAlertMessage('');
+        setalertMode('')
+      }, 3000);
+
       setIsloading(false);
     });
   }
@@ -81,12 +116,23 @@ export default function ShowSchouls() {
     getSchouls(schoulName, true);
   }
 
+  const handleTextChange = (event) => {
+    let schoulName = document.getElementById("schoulName").value;
+    if(schoulName.length > 2){
+      seIsvalid(false)
+    }
+    else{
+      seIsvalid(true)
+    }
+  }
+
   return (
     <Grid container>
         <Paper sx={{ width: '80%', margin: '30px auto'}}>
 
           <Loading loading={isloading} />
-          
+          <Alert severity={alertMode}>{alertMessage}</Alert>
+
           <h1>Pesquisa sua escola </h1>
             
             <Box sx={{margin: '1%'}}>
@@ -115,7 +161,7 @@ export default function ShowSchouls() {
                   renderInput={(params) => <TextField {...params} label="Cidades" />}
                   onChange={(event, value) => {
                     setCityCod(value.slice(0,7));
-                    getSchouls(value.slice(0,7))
+                    getSchouls(value.slice(0,7), false)
                   }} 
                 />
               </FormControl>
@@ -123,9 +169,9 @@ export default function ShowSchouls() {
             </Box>
             <Box sx={{margin: '1%'}}>
               <FormControl sx={{ m: 1, minWidth: 100 }}> 
-                  <TextField id="schoulName" label="Nome da escola" variant="outlined" />
+                  <TextField onChange={handleTextChange} id="schoulName" label="Nome da escola" placeholder='3 ou mais caracteres' variant="outlined" />
                 </FormControl>
-              <Button type='submit' color='primary' variant="contained" onClick={handleNameSearch}  sx={{ m: 3, minWidth: 200 }}>Pesquisar por nome </Button>
+              <Button type='submit' color='primary' variant="contained" disabled={isValid} onClick={handleNameSearch} sx={{ m: 2, minWidth: 200 }}>Pesquisar por nome </Button>
             </Box>
             
             <DrowTable data ={data} isRegister={false}/>
