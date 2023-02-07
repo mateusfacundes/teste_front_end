@@ -30,8 +30,7 @@ export default function AboutMe() {
                 <Paper sx={baseStyle} style={paperStyle}>
                     <h1>Sobre mim</h1>
                     <p style={{textAlign: 'justify'}}>
-                        Meu nome é <b>Mateus Marchão</b>, sou formado em <b>Ciências da computação</b> 
-                        sou programador e pretendo sempre estudar e evoluir nesta area. 
+                        Meu nome é <b>Mateus Marchão</b>, sou formado em <b>ciência da computação</b> sou programador e pretendo sempre estudar e evoluir nesta area. 
                     </p>
                     <PersonOutlinedIcon sx={{ fontSize: 40 }}/>
                 </Paper>
@@ -41,8 +40,7 @@ export default function AboutMe() {
                     <h1>Sobre o Projeto</h1>
                     <p style={{textAlign: 'justify'}}>
                         O projeto foi desenvolvido em React utilizando as bibliotecas <b>Material UI</b> criação dos layouts
-                        , <b>Axios</b> para facilitar as requisições, <b>react router</b>  para navegação entre paginas e 
-                        <b>json-server</b> para criação de um servidor local com as informações de login e escolas.
+                        , <b>Axios</b> para facilitar as requisições, <b>react router</b>  para navegação entre paginas e <b>json-server</b> para criação de um servidor local com as informações de login e escolas.
                     </p>
                     <SettingsOutlinedIcon sx={{ fontSize: 40 }}/>
                 </Paper>
@@ -53,8 +51,8 @@ export default function AboutMe() {
                     <p style={{textAlign: 'justify'}}>
                         O maior desafio que encontrei dentro deste trabalho foi de colocar meus conhecimentos em pratica
                         entre as pausas que tive do meu emprego. Acredito que consegui superar esta dificuldade gerenciando 
-                        de forma efetiva o tempo, escalando tarefas com prioridade e semrpe tirando tempo para planejar as 
-                        funções inplementadas. 
+                        de forma efetiva o tempo, escalando tarefas com prioridade e sempre tirando tempo para planejar as 
+                        funções implementadas. 
                     </p >
                     <HikingOutlinedIcon sx={{ fontSize: 40 }}/>
                 </Paper>
