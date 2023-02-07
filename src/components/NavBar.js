@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 
 import { useNavigate } from "react-router-dom";
 
@@ -18,6 +18,9 @@ import MenuBookIcon from '@mui/icons-material/MenuBook';
 const pages = [{path: '',name:'Mostrar Escolas'}, {path: '/registerschoul',name:'Cadastrar Escolas'}, {path: '/about',name:'Sobre'}];
 
 export default function ResponsiveAppBar() {
+  const username = localStorage.getItem('user-token');;
+
+
   const navigate = useNavigate();
 
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -131,6 +134,10 @@ export default function ResponsiveAppBar() {
                 {page.name}
               </Button>
             ))}
+          </Box>
+          
+          <Box sx={{ flexGrow: 0 , display: { xs: 'none', md: 'flex' } }}>
+              <p>Olá {username}</p> 
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
