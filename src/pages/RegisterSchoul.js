@@ -55,9 +55,7 @@ export default function RegisterSchoul() {
         
         await axios.post(config.local_db_url+"/schous", data)
         .then((response) => {
-            setFormData((prevData => [...prevData, data]))
-            console.log(formData);
-
+            setFormData((prevData => [...prevData, data]));
             setIsloading(false);
         });
     }
@@ -75,7 +73,7 @@ export default function RegisterSchoul() {
     
     
     return(
-        <Paper sx={{ width: '80%', margin: '30px auto', padding: '10px'}}>
+        <Paper sx={{ width: '90%', margin: '30px auto', padding: '10px'}}>
             
             <Loading loading={isloading} />
 

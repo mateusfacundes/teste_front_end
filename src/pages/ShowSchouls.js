@@ -52,9 +52,7 @@ export default function ShowSchouls() {
       setCitys(response.data);
       setIsloading(false);
     })
-    .catch((error) => {
-      console.log(error);
-      
+    .catch((error) => {      
       setAlertMessage('Aconteceu um erro carregar sua requisição');
       setalertMode('error')
       setTimeout(() => {
@@ -85,7 +83,6 @@ export default function ShowSchouls() {
     
     await axios.get(config.api_url+path)
     .then((response) => {
-      console.log(response.data)
       if(!response.data.length === 0){
         setAlertMessage('Solicitação não encontrada');
         setalertMode('warning')
@@ -132,11 +129,11 @@ export default function ShowSchouls() {
 
   return (
     <Grid container>
-        <Paper sx={{ width: '80%', margin: '30px auto'}}>
+        <Paper sx={{ width: '90%', margin: '30px auto'}}>
 
           <Loading loading={isloading} />
           <Alert severity={alertMode}>{alertMessage}</Alert>
-
+        
           <h1>Pesquisa sua escola </h1>
             
             <Box sx={{margin: '1%'}}>
