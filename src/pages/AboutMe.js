@@ -7,7 +7,6 @@ import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import HikingOutlinedIcon from '@mui/icons-material/HikingOutlined';
 import LightbulbOutlinedIcon from '@mui/icons-material/LightbulbOutlined';
-import { textAlign } from "@mui/system";
 
 const baseStyle = { width: '90%', margin: '30px auto', padding: '20px', paddingBottom: '40px'};
 const paperStyle={height:'80%'}
@@ -26,7 +25,7 @@ export default function AboutMe() {
           
         }}
       >
-            <Grid xs={12} md={4}>
+            <Grid item xs={12} md={4}>
                 <Paper sx={baseStyle} style={paperStyle}>
                     <h1>Sobre mim</h1>
                     <p style={{textAlign: 'justify', padding: '10px', textIndent: '25px'}}>
@@ -35,7 +34,7 @@ export default function AboutMe() {
                     <PersonOutlinedIcon sx={{ fontSize: 40 }}/>
                 </Paper>
             </Grid>
-            <Grid xs={12} md={4}>
+            <Grid item xs={12} md={4}>
                 <Paper sx={baseStyle} style={paperStyle}>
                     <h1>Sobre o Projeto</h1>
                     <p style={{textAlign: 'justify', padding: '10px', textIndent: '25px'}}>
@@ -45,7 +44,7 @@ export default function AboutMe() {
                     <SettingsOutlinedIcon sx={{ fontSize: 40 }}/>
                 </Paper>
             </Grid>
-            <Grid xs={12} md={4}>
+            <Grid item xs={12} md={4}>
                 <Paper sx={baseStyle} style={paperStyle}>
                     <h1>Desafios</h1>
                     <p style={{textAlign: 'justify' , padding: '10px' , textIndent: '25px'}}>
@@ -57,7 +56,7 @@ export default function AboutMe() {
                     <HikingOutlinedIcon sx={{ fontSize: 40 }}/>
                 </Paper>
             </Grid>
-            <Grid xs={12} md={4}>
+            <Grid item xs={12} md={4}>
                 <Paper sx={baseStyle} style={paperStyle}>
                     <h1>Sugestões</h1>
                     <p style={{textAlign: 'justify', margin: '20px', padding: '10px', textIndent: '25px'}}>
