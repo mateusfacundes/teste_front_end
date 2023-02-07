@@ -1,9 +1,11 @@
 ## Available Scripts
 
-In the project directory, you can run to start the database:
+No diretorio do projeto rode:
 
 ### `npm run server`
 
-In the project directory, you can run to start the project:
-
 ### `npm start`
+
+E acesse para habilitar o proxy
+
+### `https://cors-anywhere.herokuapp.com/corsdemo`
