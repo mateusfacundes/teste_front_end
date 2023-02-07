@@ -68,14 +68,18 @@ export default function ShowSchouls() {
 
   async function getSchouls(searchData, isByName){
     let path = "/escolas/buscaavancada?";
+    let schoulName = document.getElementById("schoulName").value;
 
     if (isByName){
-      path += "&nome="
+      path += "&nome="+schoulName
       if(cityCod)
-      path += searchData+"&cidade="+cityCod
-    }
+        path += "&cidade="+cityCod
+      }
     else{
-      path += "cidade="+searchData
+      path += "cidade="+searchData;
+      if(schoulName !== ''){
+        path += "&nome="+schoulName;
+      }
     }
     setIsloading(true);
     
